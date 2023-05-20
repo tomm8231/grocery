@@ -5,9 +5,11 @@ import dat3.grocerydeliverysystem.dto.ProductResponse;
 import dat3.grocerydeliverysystem.entity.Product;
 import dat3.grocerydeliverysystem.repo.ProductRepo;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +26,7 @@ public class ProductService {
   }
 
   public ProductResponse addProduct(ProductRequest body) {
+
     if(productRepo.existsById(body.getName())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varen findes allerede");
     }
@@ -37,5 +40,22 @@ public class ProductService {
     Product product = productRepo.findById(productName).orElseThrow(()
         -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varen findes ikke"));
     return new ProductResponse(product);
+  }
+
+  public ResponseEntity<Boolean> editProduct(ProductRequest body) {
+    //Hvis man skal kunne ændre navnet skal det gamle navn også sendes med ind
+
+    Product product = productRepo.findById(body.getName()).orElseThrow(()
+        -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varen findes ikke"));
+
+    Product productUpdated = ProductRequest.getProductEntity(body);
+
+    product.setName(productUpdated.getName());
+    product.setPrice(productUpdated.getPrice());
+    product.setWeight(productUpdated.getWeight());
+
+    productRepo.save(product);
+
+    return new ResponseEntity<>(true, HttpStatus.OK);
   }
 }

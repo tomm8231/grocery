@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeliveryResponse {
 
-  private Long id; //primary key
+  private Long id;
   private LocalDate deliveryDate;
   private String fromWarehouse;
   private String destination;

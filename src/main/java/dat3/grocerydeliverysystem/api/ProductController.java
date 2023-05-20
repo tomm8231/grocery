@@ -4,6 +4,7 @@ import dat3.grocerydeliverysystem.dto.ProductRequest;
 import dat3.grocerydeliverysystem.dto.ProductResponse;
 import dat3.grocerydeliverysystem.entity.Product;
 import dat3.grocerydeliverysystem.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,11 @@ public class ProductController {
     @GetMapping("/{productName}")
     public ProductResponse findProductByName(@PathVariable String productName) {
       return productService.findProductByName(productName);
+    }
+
+    @PutMapping()
+    public ResponseEntity<Boolean> editProduct(@RequestBody ProductRequest body) {
+      return productService.editProduct(body);
     }
 
   }
