@@ -40,5 +40,10 @@ public class ProductController {
       return productService.editProduct(body);
     }
 
+    @DeleteMapping()
+    public ResponseEntity<Boolean> deleteProduct(@RequestBody ProductRequest body) {
+      return productService.deleteProduct(body);
+    }
+
   }
 

@@ -58,4 +58,14 @@ public class ProductService {
 
     return new ResponseEntity<>(true, HttpStatus.OK);
   }
+
+  public ResponseEntity<Boolean> deleteProduct(ProductRequest body) {
+
+    Product product = productRepo.findById(body.getName()).orElseThrow(()
+        -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varen findes ikke"));
+
+    productRepo.delete(product);
+
+    return new ResponseEntity<>(true, HttpStatus.OK);
+  }
 }
