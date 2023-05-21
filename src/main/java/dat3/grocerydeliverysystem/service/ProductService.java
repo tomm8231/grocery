@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +35,7 @@ public class ProductService {
     return new ProductResponse(newProduct);
   }
 
-  public ProductResponse findProductByName(String productName) {
+  public ProductResponse findProductById(String productName) {
     Product product = productRepo.findById(productName).orElseThrow(()
         -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varen findes ikke"));
     return new ProductResponse(product);
