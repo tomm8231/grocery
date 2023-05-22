@@ -11,11 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductResponse {
+  private Long id;
   private String name;
   private Double price;
   private Double weight;
 
   public ProductResponse(Product product) {
+    this.id = product.getId();
     this.name = product.getName();
     this.price = product.getPrice();
     this.weight = product.getWeight();

@@ -29,9 +29,9 @@ public class ProductController {
       return productService.addProduct(body);
     }
 
-    @GetMapping("/{productName}")
-    public ProductResponse findProductById(@PathVariable String productName) {
-      return productService.findProductById(productName);
+    @GetMapping("/{id}")
+    public ProductResponse findProductById(@PathVariable Long id) {
+      return productService.findProductById(id);
     }
 
     @PutMapping()
@@ -39,9 +39,9 @@ public class ProductController {
       return productService.editProduct(body);
     }
 
-    @DeleteMapping()
-    public ResponseEntity<Boolean> deleteProduct(@RequestBody ProductRequest body) {
-      return productService.deleteProduct(body);
+    @DeleteMapping("${id}")
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable Long id) {
+      return productService.deleteProduct(id);
     }
 
   }

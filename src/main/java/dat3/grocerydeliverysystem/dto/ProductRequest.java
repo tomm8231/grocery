@@ -11,6 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductRequest {
+
+  private Long id;
   private String name;
   private Double price;
   private Double weight;
@@ -20,6 +22,7 @@ public class ProductRequest {
   }
 
   public ProductRequest(Product product) {
+    this.id = product.getId();
     this.name = product.getName();
     this.price = product.getPrice();
     this.weight = product.getWeight();

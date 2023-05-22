@@ -18,11 +18,14 @@ import java.util.List;
 public class Product {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   private String name;
   private Double price;
   private Double weight;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
   List<ProductOrder> productOrders = new ArrayList<>();
 
   public Product(String name, Double price, Double weight) {

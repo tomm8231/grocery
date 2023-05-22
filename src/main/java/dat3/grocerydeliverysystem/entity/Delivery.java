@@ -1,5 +1,6 @@
 package dat3.grocerydeliverysystem.entity;
 
+import dat3.grocerydeliverysystem.dto.ProductOrderRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,13 +27,21 @@ public class Delivery {
   private String fromWarehouse;
   private String destination;
 
-  @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
-  List<ProductOrder> productOrders = new ArrayList<>();
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ProductOrder> productOrders = new ArrayList<>();
 
   public Delivery(LocalDate deliveryDate, String fromWarehouse, String destination) {
     this.deliveryDate = deliveryDate;
     this.fromWarehouse = fromWarehouse;
     this.destination = destination;
   }
+
+
+  public void addProductOrder(ProductOrder po) {
+    productOrders.add(po);
+    po.setDelivery(this);
+
+  }
+
 
 }
